@@ -1,41 +1,26 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(); // 수의 개수
-        int m = sc.nextInt(); // 합을 구해야 하는 횟수
-        int[] arr = new int[n];
-        int[] s = new int[n];
-        int sum = 0;
-        int i; // 합을 구해야 하는 구간
-        int j;
-        for(int x=0; x<n; x++) {
-            arr[x] = sc.nextInt();
-            s[x] = arr[x] + sum;
-            sum += arr[x];
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int suNo = Integer.parseInt(st.nextToken()); // 수의 개수
+        int quizNo = Integer.parseInt(st.nextToken()); // 합을 구해야 하는 횟수
+
+        long[] s = new long[suNo + 1]; // 1부터 suNo+1까지
+        st = new StringTokenizer(br.readLine());
+        for(int i=1; i<=suNo; i++) {
+            s[i] = s[i-1] + Integer.parseInt(st.nextToken()); // 합 배열
         }
-        int[] result = new int[m];
-        for(int y=0; y<m; y++) {
-            i = sc.nextInt(); // 합을 구해야 하는 구간
-            j = sc.nextInt();
-            if(i>j) {
-                try {
-                    result[y] = s[i - 1] - s[j - 2];
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    result[y] = s[i - 1];
-                }
-            } else {
-                try {
-                    result[y] = s[j - 1] - s[i - 2];
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    result[y] = s[j - 1];
-                }
-            }
+        for(int q=0; q<quizNo; q++) {
+            st = new StringTokenizer(br.readLine());
+            int i = Integer.parseInt(st.nextToken());
+            int j = Integer.parseInt(st.nextToken());
+            System.out.println(s[j]-s[i-1]);
         }
-        for(int k=0; k<m; k++) {
-            System.out.println(result[k]);
-        }
-        sc.close();
+
     }
 }
