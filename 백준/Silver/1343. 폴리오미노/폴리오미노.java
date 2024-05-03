@@ -7,8 +7,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String s = br.readLine();
-        s = s.replaceAll("XXXX", "AAAA");
-        s = s.replaceAll("XX", "BB");
+        s = s.replace("XXXX", "AAAA");
+        s = s.replace("XX", "BB");
         if(s.contains("X"))
             System.out.println(-1);
         else
