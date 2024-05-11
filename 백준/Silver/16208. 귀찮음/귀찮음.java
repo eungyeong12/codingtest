@@ -10,8 +10,8 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int[] l = new int[n];
-        int length = 0;
-        int answer = 0;
+        long length = 0;
+        long answer = 0;
         String s = br.readLine();
         StringTokenizer st = new StringTokenizer(s, " ");
         for(int i=0; i<n; i++) {
