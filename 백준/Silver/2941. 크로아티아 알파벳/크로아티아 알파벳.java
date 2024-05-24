@@ -13,7 +13,6 @@ public class Main {
         Set<String> set = new HashSet<>();
         set.add("c=");
         set.add("c-");
-        set.add("dz=");
         set.add("d-");
         set.add("lj");
         set.add("nj");
@@ -22,7 +21,7 @@ public class Main {
 
         if(s.contains("dz=")) { // 3글자는 따로 처리
             s = s.replace("dz=", "*"); // 공백으로 만들어버리면 앞뒤 문자를 합쳐서 set에 포함되는 문자열이 될 수 있으므로
-            count += s.chars().filter(c -> c == '*').count();
+            count += s.chars().filter(c -> c == '*').count(); 
         }
 
         StringBuilder sb = new StringBuilder();
