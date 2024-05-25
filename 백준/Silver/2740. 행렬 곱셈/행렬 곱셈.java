@@ -46,7 +46,7 @@ public class Main {
             size *= 2;
         }
 
-        int[][] c = strassen(a, b, size);
+        int[][] c = multiply(a, b, size);
 
         StringBuilder sb = new StringBuilder();
 
@@ -73,7 +73,7 @@ public class Main {
         return res;
     }
 
-    static int[][] strassen(int[][] a, int[][] b, int size) {
+    static int[][] multiply(int[][] a, int[][] b, int size) {
 
 
         int[][] c = new int[size][size];
@@ -99,25 +99,25 @@ public class Main {
 
 
         // M1 := (A11 + A22) * (B11 + B22)
-        int[][] M1 = strassen(add(a11, a22, newSize), add(b11, b22, newSize), newSize);
+        int[][] M1 = multiply(add(a11, a22, newSize), add(b11, b22, newSize), newSize);
 
         // M2 := (A21 + A22) * B11
-        int[][] M2 = strassen(add(a21, a22, newSize), b11, newSize);
+        int[][] M2 = multiply(add(a21, a22, newSize), b11, newSize);
 
         // M3 := A11 * (B12 - B22)
-        int[][] M3 = strassen(a11, sub(b12, b22, newSize), newSize);
+        int[][] M3 = multiply(a11, sub(b12, b22, newSize), newSize);
 
         // M4 := A22  * (B21 − B11)
-        int[][] M4 = strassen(a22, sub(b21, b11, newSize), newSize);
+        int[][] M4 = multiply(a22, sub(b21, b11, newSize), newSize);
 
         // M5 := (A11 + A12) * B22
-        int[][] M5 = strassen(add(a11, a12, newSize), b22, newSize);
+        int[][] M5 = multiply(add(a11, a12, newSize), b22, newSize);
 
         // M6 := (A21 - A11) * (B11 + B12)
-        int[][] M6 = strassen(sub(a21, a11, newSize), add(b11, b12, newSize), newSize);
+        int[][] M6 = multiply(sub(a21, a11, newSize), add(b11, b12, newSize), newSize);
 
         // M7 := (A12 - A22) * (B21−B22)
-        int[][] M7 = strassen(sub(a12, a22, newSize), add(b21, b22, newSize), newSize);
+        int[][] M7 = multiply(sub(a12, a22, newSize), add(b21, b22, newSize), newSize);
 
 
 
