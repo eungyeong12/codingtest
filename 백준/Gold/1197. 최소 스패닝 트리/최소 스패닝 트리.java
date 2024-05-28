@@ -27,6 +27,13 @@ class Edge {
     }
 }
 
+class MyComp implements Comparator<Edge> {
+    @Override
+    public int compare(Edge o1, Edge o2) {
+        return o1.w - o2.w;
+    }
+}
+
 public class Main {
 
     public static void main(String[] args) throws IOException {
@@ -48,7 +55,7 @@ public class Main {
             E.add(new Edge(u,v,w));
         }
 
-        ArrayList<Edge> answer = kruskal(V, E.size(), E);
+        ArrayList<Edge> answer = kruskal(V,E);
         Iterator it = answer.listIterator();
         int weight = 0;
         while(it.hasNext()) {
@@ -58,18 +65,14 @@ public class Main {
         System.out.println(weight);
     }
 
-    static ArrayList<Edge> kruskal(int n, int m, ArrayList<Edge> E) {
+    static ArrayList<Edge> kruskal(int n, ArrayList<Edge> E) {
         int i,j,p,q;
         Edge e;
         ArrayList<Edge> F = new ArrayList<>();
         int[] parent = new int[n+1];
 
-        Collections.sort(E, new Comparator<Edge>() {
-            @Override
-            public int compare(Edge o1, Edge o2) {
-                return o1.w-o2.w;
-            }
-        });
+        PriorityQueue<Edge> heap = new PriorityQueue<>(new MyComp());
+        heap.addAll(E);
 
         // 부모를 자기 자신으로 초기화
         for(i=1; i<n+1; i++) {
@@ -77,7 +80,7 @@ public class Main {
         }
 
         while(F.size() < n-1) {
-            e = E.remove(0);
+            e = heap.poll();
             i = e.u;
             j = e.v;
 
