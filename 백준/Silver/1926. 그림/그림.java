@@ -7,8 +7,7 @@ import java.util.StringTokenizer;
 class Pair {
     int x;
     int y;
-
-    public Pair(int x, int y) {
+    Pair(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -37,29 +36,29 @@ public class Main {
             }
         }
 
-        ArrayDeque<Pair> queue = new ArrayDeque<>();
+        ArrayDeque<Pair> stack = new ArrayDeque<>();
         for(int i=0; i<n; i++) {
             for(int j=0; j<m; j++) {
                 if(board[i][j] == 0 || visit[i][j]) // 그림이 그려져 있지 않거나, 이미 방문한 경우
                     continue;
 
-                count++;
-                queue.add(new Pair(i, j));
-                visit[i][j] = true;
+                count++; // 그림의 개수 증가
+                stack.push(new Pair(i, j)); // 시작하는 칸을 큐에 넣기
+                visit[i][j] = true; // 방문 표시
                 int area = 0;
 
-                while(!queue.isEmpty()) {
-                    Pair p = queue.poll();
-                    area++;
-                    for(int k=0; k<4; k++) {
+                while(!stack.isEmpty()) { // 큐가 빌 때까지 반복
+                    Pair p = stack.pop();
+                    area++; // 그림의 넓이 증가
+                    for(int k=0; k<4; k++) { // 상하좌우로 인접한 칸에 대해
                         int nx = p.x + dx[k];
                         int ny = p.y + dy[k];
                         if(nx < 0 || nx >= n || ny < 0 || ny >= m) // 범위를 벗어나는 경우
                             continue;
-                        if(visit[nx][ny] || board[nx][ny] == 0) // 이미 방문했거나, 그림이 그려져 있지 않은 경우
-                            continue;
-                        visit[nx][ny] = true;
-                        queue.add(new Pair(nx, ny));
+                        if(board[nx][ny] == 1 && !visit[nx][ny]) { // 그림이 그려져 있고, 방문한 적이 없는 경우
+                            visit[nx][ny] = true;
+                            stack.push(new Pair(nx, ny));
+                        }
                     }
                 }
 
