@@ -7,7 +7,7 @@ public class Main {
 
     static int N = 19;
     static int[][] board;
-    static int[] dx = {0, -1, 1, 1};
+    static int[] dx = {0, -1, 1, 1}; // 우, 우상, 우하, 하
     static int[] dy = {1, 1, 1, 0};
 
     public static void main(String[] args) throws IOException {
@@ -47,8 +47,8 @@ public class Main {
         int nx, ny;
 
         for(int i=1; i<5; i++) {
-            nx = x + i*dx[d];
-            ny = y + i*dy[d];
+            nx = x + i * dx[d];
+            ny = y + i * dy[d];
 
             if (nx < 0 || nx >= N || ny < 0 || ny >= N || board[nx][ny] != n) {
                 break;
@@ -61,7 +61,7 @@ public class Main {
             nx = x - dx[d];
             ny = y - dy[d];
             if(nx >= 0 && nx < N && ny >= 0 && ny < N && board[nx][ny] == n) {
-                    return false;
+                return false;
             }
 
             nx = x + 5 * dx[d];
