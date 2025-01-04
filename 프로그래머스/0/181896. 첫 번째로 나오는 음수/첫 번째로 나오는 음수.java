@@ -4,14 +4,9 @@ class Solution {
         boolean b = false;
         for (int i=0; i<num_list.length; i++) {
             if (num_list[i] < 0) {
-                answer = i;
-                b = true;
-                break;
+                return i;
             }
         }
-        if (!b) {
-            answer = -1;
-        }
-        return answer;
+        return -1;
     }
 }
