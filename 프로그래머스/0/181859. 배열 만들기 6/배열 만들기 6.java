@@ -3,19 +3,19 @@ import java.util.*;
 class Solution {
     public int[] solution(int[] arr) {
         int[] answer = {};
-        Stack<Integer> stack = new Stack<>();
+        Deque<Integer> stack = new ArrayDeque<>();
         int i= 0;
         while (i < arr.length) {
-            if (stack.isEmpty() || stack.peek() != arr[i]) {
-                stack.push(arr[i]);
+            if (stack.isEmpty() || stack.peekLast() != arr[i]) {
+                stack.addLast(arr[i]);
             } else {
-                stack.pop();
+                stack.removeLast();
             }
             i++;
         }
         
         if (stack.isEmpty()) {
-            stack.push(-1);
+            stack.addFirst(-1);
         }
         return stack.stream().mapToInt(Integer::intValue).toArray();
     }
