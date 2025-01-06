@@ -7,10 +7,9 @@ class Solution {
             n = arr.length;
         }
         int[][] answer = new int[n][n];
-        for (int i=0; i<n; i++) {
-            for (int j=0; j<n; j++) {
-                if (arr.length > i && arr[0].length > j)
-                    answer[i][j] = arr[i][j];
+        for (int i=0; i<arr.length; i++) {
+            for (int j=0; j<arr[i].length; j++) {
+                answer[i][j] = arr[i][j];
             }
         }
         return answer;
