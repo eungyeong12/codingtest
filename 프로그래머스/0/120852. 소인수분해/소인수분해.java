@@ -16,6 +16,7 @@ class Solution {
                 if (b) {
                     list.add(i);
                 }
+                n /= i;
             }
         }
         return list.stream().mapToInt(Integer::intValue).toArray();
