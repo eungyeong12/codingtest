@@ -4,20 +4,16 @@ class Solution {
         int p = transferToSecond(pos);
         int os = transferToSecond(op_start);
         int oe = transferToSecond(op_end);
-
-        if (isOpening(p, os, oe)) {
-            p = oe;
-        }
         
         for (String c : commands) {
+            if (isOpening(p, os, oe)) {
+                p = oe;
+            }
             if (c.equals("prev")) {
                 p = movePrev(p);
             } 
             if (c.equals("next")) {
                 p = moveNext(vl, p);
-            }
-            if (isOpening(p, os, oe)) {
-                p = oe;
             }
         }
         
