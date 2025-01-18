@@ -5,7 +5,6 @@ class Solution {
         // 1단계
         new_id = new_id.toLowerCase(); 
         StringBuilder newId = new StringBuilder(new_id);
-        System.out.println(newId.toString());
 
         // 2단계 
         for (int i=0; i<newId.length(); i++) { 
@@ -21,7 +20,6 @@ class Solution {
                 i--;
             }
         }
-        System.out.println(newId.toString());
         
         // 3단계
         int index = -1;
@@ -37,8 +35,7 @@ class Solution {
                 }
             } else {
                 if (index != -1 && count != 0) {
-                    newId.delete(index, index+count);
-                    newId.insert(index, ".");
+                    newId.delete(index+1, index+count);
                     i -= count;
                     index = -1;
                     count = 0;
@@ -46,10 +43,8 @@ class Solution {
             }
         }
         if (index != -1 && count != 0) {
-            newId.delete(index, index+count);
-            newId.insert(index, ".");
+            newId.delete(index+1, index+count);
         }
-        System.out.println(newId.toString());
         
         // 4단계
         if (newId.length() > 0 && newId.charAt(0) == '.') {
@@ -58,13 +53,11 @@ class Solution {
         if (newId.length() > 0 && newId.charAt(newId.length() - 1) == '.') {
             newId.deleteCharAt(newId.length() - 1);
         }
-        System.out.println(newId.toString());
         
         // 5단계
         if (newId.length() == 0) {
             newId.append("a");
         }
-        System.out.println(newId.toString());
         
         // 6단계
         if (newId.length() >= 16) {
@@ -73,7 +66,6 @@ class Solution {
                 newId.deleteCharAt(newId.length()-1);
             }
         }
-        System.out.println(newId.toString());
         
         // 7단계
         if (newId.length() <= 2) {
@@ -81,7 +73,6 @@ class Solution {
                 newId.append(newId.charAt(newId.length()-1));
             }
         }
-        System.out.println(newId.toString());
         return newId.toString();
     }
 }
