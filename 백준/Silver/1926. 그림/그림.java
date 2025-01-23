@@ -1,72 +1,71 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
 
-class Pair {
-    int x;
-    int y;
-    Pair(int x, int y) {
-        this.x = x;
-        this.y = y;
+class Main {
+    static int n;
+    static int m;
+    static int[][] board;
+    static boolean[][] visited;
+    static int[] dx = {-1, 1, 0, 0};
+    static int[] dy = {0, 0, -1, 1};
+    static int count;
+    static int maxWidth;
+
+    public static int bfs(int x, int y) {
+        Deque<int[]> queue = new ArrayDeque<>();
+        visited[x][y] = true;
+        queue.add(new int[]{x, y});
+        int width = 1;
+
+        while (!queue.isEmpty()) {
+            int[] p = queue.poll();
+            int px = p[0];
+            int py = p[1];
+
+            for (int i=0; i<4; i++) {
+                int nx = px + dx[i];
+                int ny = py + dy[i];
+                if (nx >= 0 && nx < n && ny >= 0 && ny < m) {
+                    if (!visited[nx][ny] && board[nx][ny] == 1) {
+                        width++;
+                        visited[nx][ny] = true;
+                        queue.add(new int[]{nx, ny});
+                    }
+                }
+            }
+        }
+
+        return width;
     }
-}
 
-public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String s = br.readLine();
-        StringTokenizer st = new StringTokenizer(s, " ");
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        board = new int[n][m];
+        visited = new boolean[n][m];
+        count = 0;
+        maxWidth = 0;
 
-        int[][] board = new int[n][m];
-        boolean[][] visit = new boolean[n][m];
-        int[] dx = {1,0,-1,0};
-        int[] dy = {0,1,0,-1};
-        int count = 0; // 그림의 개수
-        int maxArea = 0; // 가장 넓은 그림의 넓이
-
-        for(int i=0; i<n; i++) {
-            s = br.readLine();
-            st = new StringTokenizer(s, " ");
-            for(int j=0; j<m; j++) {
+        for (int i=0; i<n; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j=0; j<m; j++) {
                 board[i][j] = Integer.parseInt(st.nextToken());
             }
         }
 
-        ArrayDeque<Pair> stack = new ArrayDeque<>();
-        for(int i=0; i<n; i++) {
-            for(int j=0; j<m; j++) {
-                if(board[i][j] == 0 || visit[i][j]) // 그림이 그려져 있지 않거나, 이미 방문한 경우
-                    continue;
-
-                count++; // 그림의 개수 증가
-                stack.push(new Pair(i, j)); // 시작하는 칸을 큐에 넣기
-                visit[i][j] = true; // 방문 표시
-                int area = 0;
-
-                while(!stack.isEmpty()) { // 큐가 빌 때까지 반복
-                    Pair p = stack.pop();
-                    area++; // 그림의 넓이 증가
-                    for(int k=0; k<4; k++) { // 상하좌우로 인접한 칸에 대해
-                        int nx = p.x + dx[k];
-                        int ny = p.y + dy[k];
-                        if(nx < 0 || nx >= n || ny < 0 || ny >= m) // 범위를 벗어나는 경우
-                            continue;
-                        if(board[nx][ny] == 1 && !visit[nx][ny]) { // 그림이 그려져 있고, 방문한 적이 없는 경우
-                            visit[nx][ny] = true;
-                            stack.push(new Pair(nx, ny));
-                        }
-                    }
+        for (int i=0; i<n; i++) {
+            for (int j=0; j<m; j++) {
+                if (!visited[i][j] && board[i][j] == 1) {
+                    count++;
+                    int width = bfs(i, j);
+                    maxWidth = Math.max(maxWidth, width);
                 }
-
-                if(maxArea < area)
-                    maxArea = area;
             }
         }
+
         System.out.println(count);
-        System.out.println(maxArea);
+        System.out.println(maxWidth);
     }
 }
