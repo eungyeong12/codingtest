@@ -1,46 +1,41 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String s = br.readLine();
-        StringTokenizer st = new StringTokenizer(s, " ");
-        int n = Integer.parseInt(st.nextToken());
-        int k = Integer.parseInt(st.nextToken());
+class Main {
+    static int n;
+    static int k;
+    static int[] board;
 
-        int[] visit = new int[100001];
-        Arrays.fill(visit, -1);
-
-        ArrayDeque<Integer> queue = new ArrayDeque<>();
+    public static void bfs(int n) {
+        Deque<Integer> queue = new ArrayDeque<>();
+        board[n]++;
         queue.add(n);
-        visit[n] = 0;
 
-        while(!queue.isEmpty()) {
-            int i = queue.poll();
-            if(i == k) {
-                System.out.println(visit[i]);
-                return;
+        while (!queue.isEmpty()) {
+            int p = queue.poll();
+            if (p-1 >= 0 && p-1 < board.length && board[p-1] == -1) {
+                board[p-1] = board[p] + 1;
+                queue.add(p-1);
             }
-
-            if(i-1 >= 0 && i-1 < visit.length && visit[i-1] == -1) {
-                visit[i-1] = visit[i]+1;
-                queue.add(i-1);
+            if (p+1 >= 0 && p+1 < board.length && board[p+1] == -1) {
+                board[p+1] = board[p] + 1;
+                queue.add(p+1);
             }
-
-            if(i+1 >= 0 && i+1 < visit.length && visit[i+1] == -1) {
-                visit[i+1] = visit[i]+1;
-                queue.add(i+1);
-            }
-
-            if(i*2 >= 0 && i*2 < visit.length && visit[i*2] == -1) {
-                visit[i*2] = visit[i]+1;
-                queue.add(i*2);
+            if (2*p >= 0 && 2*p < board.length && board[2*p] == -1) {
+                board[2*p] = board[p] + 1;
+                queue.add(2*p);
             }
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        k = Integer.parseInt(st.nextToken());
+        board = new int[100001];
+        Arrays.fill(board, -1);
+        bfs(n);
+        System.out.println(board[k]);
     }
 }
