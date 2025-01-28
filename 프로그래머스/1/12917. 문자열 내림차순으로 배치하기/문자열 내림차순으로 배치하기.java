@@ -11,10 +11,6 @@ class Solution {
         for (int i=0; i<c.length; i++) {
             c[i] = (char) a[i];
         }
-        StringBuilder sb = new StringBuilder();
-        for (int i=0; i<c.length; i++) {
-            sb.append(c[i]);
-        }
-        return sb.reverse().toString();
+        return new StringBuilder(new String(c)).reverse().toString();
     }
 }
