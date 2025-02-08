@@ -10,25 +10,12 @@ class Main {
         for (int i=0; i<n; i++) {
             arr[i] = Integer.parseInt(br.readLine());
         }
-        while(true) {
-            if (isSort(arr))
-                break;
-            for (int i=n-1; i>0; i--) {
-                if (arr[i] <= arr[i - 1]) {
-                    arr[i - 1]--;
-                    break;
-                }
+        for (int i=n-1; i>0; i--) {
+            if (arr[i - 1] >= arr[i]) {
+                count += (arr[i - 1] - arr[i] + 1);
+                arr[i - 1] = arr[i] - 1;
             }
-            count++;
         }
         System.out.println(count);
-    }
-    
-    public static boolean isSort(int[] arr) {
-        for (int i=0; i<arr.length - 1; i++) {
-            if (arr[i] >= arr[i + 1])
-                return false;
-        }
-        return true;
     }
 }
